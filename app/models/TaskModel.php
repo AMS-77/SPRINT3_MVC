@@ -68,10 +68,21 @@ public function createTask($title, $username, $description,$taskStatus, $startDa
     $this->saveTasks($newtask);
 }
 
+public function deleteTask($id){
 
-    
+    // Vamos a iterar sobre el array de tareas
+    foreach ($this->tasksArray as $i => $task) {
+        
+        if ($task['id'] == $id) {
+            // Si lo encontramos se elimina la tarea
+            unset($tasks[$i]);
+            // Una vez eliminada salimos del bucle
+            break;
+        }
+    }   
 }
 
+}
 
 
 ?>
