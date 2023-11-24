@@ -48,11 +48,20 @@ class ApplicationController extends Controller {
         }
     }
 
-
-
+    public function deleteTaskAction() {
+        // Hacemos la instancia para la clase TaskModel
+        $taskList = new TaskModel();
     
-
-	
+        /* El ID de la tarea que eliminemos nos viene a través de la URL, por eso usamos
+        la variable superglobal $_GET */
+        $taskId = $_GET['id'];
+    
+        // Comprobamos si el envio del formulario es a través del metodo POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Eliminamos la tarea
+            $taskList->deleteTask($taskId);	
+        }
+    }
 }
 
 ?>
