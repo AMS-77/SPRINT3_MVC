@@ -75,7 +75,7 @@ public function deleteTask($id){
         
         if ($task['id'] == $id) {
             // Si lo encontramos se elimina la tarea
-            unset($tasks[$i]);
+            unset($this->tasksArray[$i]);
             // Una vez eliminada salimos del bucle
             break;
         }
