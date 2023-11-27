@@ -79,7 +79,8 @@ public function deleteTask($id){
             // Una vez eliminada salimos del bucle
             break;
         }
-    }   
+    } 
+    $this->saveTasks(); // Llamamos a la función saveTasks, cuando hemos eliminado la tarea  
 }
 
 }
