@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Task</title>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h1>Delete Task</h1>
+
+        <?php if (isset($this->task) && !empty($this->task)): ?>
+            <p>Are you sure you want to delete the following task?</p>
+
+            <div class="task-details">
+                <p><strong>Title:</strong> <?php echo $this->task['title']; ?></p>
+                <p><strong>User:</strong> <?php echo $this->task['user']; ?></p>
+                <!-- Add other task details as needed -->
+            </div>
+
+            <form method="post" action="/deleteTask">
+                <input type="hidden" name="action" value="confirmDelete" />
+                <input type="hidden" name="taskId" value="<?php echo $this->task['id']; ?>" />
+                <button type="submit">Confirm Delete</button>
+            </form>
+
+            <a href="/showAllTasks">
+                <button>Cancel</button>
+            </a>
+
+        <?php else: ?>
+            <p>No task found for deletion.</p>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
