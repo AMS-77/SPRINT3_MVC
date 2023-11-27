@@ -61,11 +61,11 @@ public function createTask($title, $username, $description,$taskStatus, $startDa
         'description' => $description,
         'taskStatus' => $taskStatus,
         'startdate' => $startDate,
-        'enddate' => $endDate,        
+        'enddate' => $endDate        
     ];
 
     $this->tasksArray[] = $newtask;
-    $this->saveTasks($newtask);
+    $this->saveTasks();
 }
 
 public function deleteTask($id){
