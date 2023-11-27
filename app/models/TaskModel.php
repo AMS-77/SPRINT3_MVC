@@ -61,11 +61,11 @@ public function createTask($title, $username, $description,$taskStatus, $startDa
         'description' => $description,
         'taskStatus' => $taskStatus,
         'startdate' => $startDate,
-        'enddate' => $endDate,        
+        'enddate' => $endDate        
     ];
 
     $this->tasksArray[] = $newtask;
-    $this->saveTasks($newtask);
+    $this->saveTasks();
 }
 
 public function deleteTask($id){
@@ -81,6 +81,34 @@ public function deleteTask($id){
         }
     } 
     $this->saveTasks(); // Llamamos a la función saveTasks, cuando hemos eliminado la tarea  
+}
+
+public function updateTask($id, $title, $username, $description,$taskStatus, $startDate, $endDate){
+    
+    // Vamos a iterar sobre el array de tareas
+    foreach ($this->tasksArray as $i=>$task) {
+        if ($task['id'] == $id) {
+            //Hacemos una copia de la tarea y actualizamos sobre ella
+            $copyTask = $task;
+
+            $copyTask['title'] = $title;
+            $copyTask['userName'] = $username;
+            $copyTask['description'] = $description;
+            $copyTask['taskStatus'] = $taskStatus;
+            $copyTask['startdate'] = $startDate;
+            $copyTask['enddate'] = $endDate; 
+
+            //Introducimos la copia actualizada al array, indicando el indice ($i)
+            $this->tasksArray[$i] = $copyTask;
+
+            //Guardamos los cambios en caso de haberse encontrado la tarea
+            $this->saveTasks();
+
+            //Salimos del bucle si ya la ha encontrado,  para que no siga iterando
+            break;
+        }    
+    }
+
 }
 
 }

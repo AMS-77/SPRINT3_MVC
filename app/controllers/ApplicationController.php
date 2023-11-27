@@ -14,7 +14,7 @@ class ApplicationController extends Controller {
 
     //Attributes
     private $jsonDB;
-    private $taskOrganizer;
+    private $taskOrganizer;//eliminamos la necesidad de crear una nueva instancia en cada metodo 
 
     //Constructor
     public function __construct(){
@@ -49,8 +49,6 @@ class ApplicationController extends Controller {
     }
 
     public function deleteTaskAction() {
-        // Hacemos la instancia para la clase TaskModel
-        $taskList = new TaskModel();
     
         /* El ID de la tarea que eliminemos nos viene a través de la URL, por eso usamos
         la variable superglobal $_GET */
@@ -59,7 +57,25 @@ class ApplicationController extends Controller {
         // Comprobamos si el envio del formulario es a través del metodo POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Eliminamos la tarea
-            $taskList->deleteTask($taskId);	
+            $this->taskOrganizer->deleteTask($taskId);	
+        }
+    }
+
+    public function updateTaskAction(){
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // Cogemos los datos del formulario
+            $taskId = $_POST ['id'];
+            $title = $_POST['title'];
+            $userName = $_POST['userName'];
+            $description = $_POST['description'];
+            $taskStatus = $_POST['taskStatus'];
+            $startDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
+
+            $this->taskOrganizer->updateTask($taskId, $title, $userName, $description, $taskStatus, $startDate, $endDate);
+
+
         }
     }
 }
