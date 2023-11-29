@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Update Task</title>
+</head>
+<body>
+        <div class="main container">
+
+            <h1 class="main_title">Update Task</h1>
+            
+                <form method="post" action="updateTask" class="form_group">
+    <input type="hidden" name="taskId" value="<?php echo isset($taskId) ? $taskId : ''; ?>" />
+    <!-- Resto de los campos del formulario -->
+    
+    
+
+                    <div class="form_group">
+                        <label for="title" class="label">Title:</label>
+                        <input type="text" name="title" class="form_group">
+                    </div>
+
+                    <div class="form_group">
+                        <label for="userName" class="label">User Name:</label>
+                        <input type="text" name="userName" class="form_group">
+                    </div>
+
+                    <div class="form_group">
+                        <label for="description" class="label">Description:</label>
+                        <textarea name="description" class="form_group" cols="30" rows="5"></textarea>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="startDate" class="label">Start Date:</label>
+                        <input type="date" name="startDate" class="form_group">
+                    </div>
+
+                    <div class="form_group">
+                        <label for="endDate" class="label">End Date:</label>
+                        <input type="date" name="endDate" class="form_group">
+                    </div>
+
+                    <div class="form_group">
+                        <label for="taskStatus" class="label">Task Status:</label>
+                        <select name="taskStatus" class="form_group">
+                            <option value="not_completed">Not Completed</option>
+                            <option value="completed">Completed</option>
+                            <option value="ongoing">Ongoing</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">update Task</button>
+            </form>
+        </div>   
+</body>
+</html>
