@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title class="title">To Do List</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-center bg-yellow-500 p-4 rounded-md shadow-md mb-8">Your To-Do List 📝</h1>
+
+        <table class="w-full border-collapse mt-8">
+            <thead>
+                <tr>
+                    <th class="border py-2 px-4">Title</th>
+                    <th class="border py-2 px-4">User</th>
+                    <th class="border py-2 px-4">Status</th>
+                    <th class="border py-2 px-4">Description</th>
+                    <th class="border py-2 px-4">Start Date</th>
+                    <th class="border py-2 px-4">End date</th>
+                    <th class="border py-2 px-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->tasks as $task) : ?>
+                    <tr>
+                        <td class="border py-2 px-4"><?= $task['title']; ?></td>
+                        <td class="border py-2 px-4"><?= $task['userName']; ?></td>
+                        <td class="border py-2 px-4"><?= $task['taskStatus']; ?></td>
+                        <td class="border py-2 px-4"><?= $task['description']; ?></td>
+                        <td class="border py-2 px-4"><?= $task['startDate']; ?></td>
+                        <td class="border py-2 px-4"><?= $task['endDate']; ?></td>
+                        <td class="border py-2 px-4">
+
+                            <form method="get" action="updateTask">
+                                <input type="hidden" name="taskId" value="<?= $task['id']; ?>" />
+                                <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded">Update</button>
+                            </form>
+
+                            <form method="get" action="deleteTask">
+                                <input type="hidden" name="taskId" value="<?= $task['id']; ?>" />
+                                <button type="submit" class="bg-red-500 text-white px-3 py-2 rounded ml-2">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div class="flex justify-start mt-8 pl-12">
+            <form method="get" action="createTask">
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Create New Task</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
