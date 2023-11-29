@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Controlador de la aplicación.
+ * Controlador de la aplicación
  */
 
 class ApplicationController extends Controller {
