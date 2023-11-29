@@ -25,57 +25,5 @@ $this->endDate = $endDate;
     
 }
 
-//Getters PS: We don't need all these methods. Leave them here for now.
-public function getId(){
-    return $this->id;
-}
-
-public function getTitle(){
-    return $this->title;
-}
-
-public function getUserName(){
-    return $this->userName;
-}
-
-public function getDescription(){
-    return $this->description;
-}
-
-public function getTaskStatus(){
-    return $this->taskStatus;
-}
-
-public function getStartDate(){
-    return $this->startDate;
-}
-
-public function getEndDate(){
-    return $this->endDate;
-}
-
-//Setters PS: We don't need all these methods. Leave them here for now.
-
-public function setTitle($title){
-    $this->title = $title;
-}
-
-public function setDescription($description){
-    $this->description = $description;
-}
-
-public function setTaskStatus($taskStatus){
-    $this->taskStatus = $taskStatus;
-}
-
-public function setStartDate($startDate){
-    $this->startDate = $startDate;
-}
-
-public function setEndDate($endDate){
-    $this->endDate = $endDate;
-}
-
-
 
 }
