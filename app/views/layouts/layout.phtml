@@ -1,11 +1,31 @@
+<!-- layout.phtml -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List App</title>
+    <style>
+        /* Puedes agregar estilos adicionales aquí según tus necesidades */
+    </style>
 </head>
 <body>
-	<?php echo $this->content(); ?>
+    <header>
+        <h1>ToDo List App</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Tasks</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <?php echo $this->content(); ?>
+    </main>
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> ToDo List App. All rights reserved.</p>
+    </footer>
 </body>
 </html>
