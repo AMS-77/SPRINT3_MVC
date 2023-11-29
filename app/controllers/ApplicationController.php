@@ -5,7 +5,7 @@
  * Add general things in this controller.
  */
 
-require_once '../models/TaskModel.php';
+//require_once '../models/TaskModel.php';
 //require_once '../../lib/base/Controller.php'; //Isn't necessary..
 
 class ApplicationController extends Controller {
@@ -23,6 +23,14 @@ class ApplicationController extends Controller {
     }
 
     public function indexAction(){
+        //take all tasks and insert them on the variable
+        $taskList = new TaskModel();
+        
+        $tasks = $taskList->getAllTasks();
+        //Send the tasks to view
+        $this->view->tasks = $tasks;
+    }
+    public function showAllTasks(){
         //take all tasks and insert them on the variable
         $taskList = new TaskModel();
         
