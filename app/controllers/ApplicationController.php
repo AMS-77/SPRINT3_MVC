@@ -1,71 +1,62 @@
 <?php
 
 /**
- * Base controller for the application.
- * Add general things in this controller.
+ * Controlador de la aplicación.
  */
-
-require_once '../models/TaskModel.php';
-//require_once '../../lib/base/Controller.php'; //Isn't necessary..
 
 class ApplicationController extends Controller {
 
-
-
-    //Attributes
-    private $jsonDB;
-    private $taskOrganizer;//eliminamos la necesidad de crear una nueva instancia en cada metodo 
+    //Atributo.
+    private $taskOrganizer;//eliminamos necesidad de crear una nueva instancia en cada metodo 
 
     //Constructor
     public function __construct(){
-        $this->jsonDB = '../app/models/database/db.json';
-        $this->taskOrganizer = new TaskModel();
+        $this->taskOrganizer = new TaskModel(); //se inicializa la instancia en el Constructor
     }
 
     public function indexAction(){
-        //take all tasks and insert them on the variable
-        $taskList = new TaskModel();
-        
-        $tasks = $taskList->getAllTasks();
-        //Send the tasks to view
-        $this->view->tasks = $tasks;
+        //Este es el primer método del CRUD que se ejecuta en la vista principal, es la R.
+        $tasks = $this->taskOrganizer->getAllTasks();
+        //Gracias al array que hemos rescatado del modelo, se enseñará en la vista.
+        $this->view->tasks = $tasks ;
     }
 
     public function createTaskAction(){
                 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            //Take information from the form
+            //Coge la información escrita en el formulario
             $title = $_POST['title'];
             $userName = $_POST['userName'];
             $description = $_POST['description'];
             $taskStatus = $_POST['taskStatus'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
-
+            //enviamos datos al modelo
             $this->taskOrganizer->createTask($title, $userName, $description, $taskStatus, $startDate, $endDate);
-
-
+            //Regresa a la pantalla principal.
+            header("Location: ../web/"); 
+            exit;
         }
+        
     }
 
     public function deleteTaskAction() {
-    
-        /* El ID de la tarea que eliminemos nos viene a través de la URL, por eso usamos
-        la variable superglobal $_GET */
-        $taskId = $_GET['id'];
-    
-        // Comprobamos si el envio del formulario es a través del metodo POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Eliminamos la tarea
-            $this->taskOrganizer->deleteTask($taskId);	
-        }
+        /*El ID de la tarea que eliminemos nos viene a través de la URL, por eso usamos
+       la variable superglobal $_GET */
+        $taskId = $_GET['taskId'];
+        
+        // Enviamos el ID de la tarea al método del Modelo que se encargará de borrar definitivamente
+        $this->taskOrganizer->deleteTask($taskId);	
+        //Regresa a la pantalla principal.
+        header("Location: ../web/"); 
+        exit;
     }
 
     public function updateTaskAction(){
-
+        
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Cogemos los datos del formulario
-            $taskId = $_POST ['id'];
+            $taskId = $_POST['taskId'];
             $title = $_POST['title'];
             $userName = $_POST['userName'];
             $description = $_POST['description'];
@@ -73,8 +64,18 @@ class ApplicationController extends Controller {
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
 
-            $this->taskOrganizer->updateTask($taskId, $title, $userName, $description, $taskStatus, $startDate, $endDate);
-
+            $taskUpdate = [
+                'title' => $title,
+                'userName' => $userName,
+                'description' => $description,
+                'taskStatus' => $taskStatus,
+                'startDate' => $startDate,
+                'endDate' => $endDate ];
+            
+            $this->taskOrganizer->updateTask($taskId,$taskUpdate);
+            //Regresa a la pantalla principal.
+            header("Location: ../web/"); 
+            exit; 
 
         }
     }
