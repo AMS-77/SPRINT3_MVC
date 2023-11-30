@@ -56,12 +56,14 @@ class TaskModel {
         $this->tasksArray[] = $newTask;
         $this->saveTasks();
     }
-
     // Eliminar una tarea por su ID
     public function deleteTask( $taskId){
         // Iterar sobre el array de tareas
         foreach ($this->tasksArray as $i => $task) {
-            if ($task['id'] == $taskId) {
+            /*Debemos comprobar que la clave id existe en $task, para evitar un warning
+            //en el navegador, con la funcion array_key_exists, además comprobamos que coincida
+            con el que buscamos.*/
+            if (array_key_exists('id', $task) && $task['id'] == $taskId) {
                 // Si se encuentra, eliminar la tarea y salir del bucle
                 unset($this->tasksArray[$i]);
                 $this->saveTasks();

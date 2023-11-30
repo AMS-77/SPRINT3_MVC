@@ -4,7 +4,7 @@
  * Controlador de la aplicación...
  */
 
-require_once '../models/TaskModel.php';
+//require_once '../models/TaskModel.php';
 //require_once '../../lib/base/Controller.php'; //Isn't necessary..
 
 class ApplicationController extends Controller {
@@ -55,12 +55,8 @@ class ApplicationController extends Controller {
         /*El ID de la tarea que eliminemos nos viene a través de la URL, por eso usamos
        la variable superglobal $_GET */
         $taskId = $_GET['taskId'];
-        
         // Enviamos el ID de la tarea al método del Modelo que se encargará de borrar definitivamente
         $this->taskOrganizer->deleteTask($taskId);	
-        //Regresa a la pantalla principal.
-        header("Location: ../web/"); 
-        exit;
     }
 
     public function updateTaskAction(){
