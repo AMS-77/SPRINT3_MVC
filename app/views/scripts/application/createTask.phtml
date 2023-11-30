@@ -3,51 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Task</title>
+    <title>Crear Tarea</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto p-8">
-        <h1 class="text-3xl font-bold mb-8 text-center bg-blue-500 text-white p-4">Create Task Panel</h1>
+        <h1 class="text-3xl font-bold mb-8 text-center bg-blue-500 text-white p-4">Nueva Tarea</h1>
 
         <form method="post" action="createTask" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
             <input type="hidden" name="action" value="create">
             
             <div class="mb-4">
-                <label for="title" class="text-sm font-bold text-gray-600">Title:</label>
+                <label for="title" class="text-sm font-bold text-gray-600">Titulo:</label>
                 <input type="text" name="title" class="w-full border rounded-md py-2 px-3 mt-1">
             </div>
 
             <div class="mb-4">
-                <label for="userName" class="text-sm font-bold text-gray-600">User Name:</label>
+                <label for="userName" class="text-sm font-bold text-gray-600">Nombre de Usuario:</label>
                 <input type="text" name="userName" class="w-full border rounded-md py-2 px-3 mt-1">
             </div>
 
             <div class="mb-4">
-                <label for="description" class="text-sm font-bold text-gray-600">Description:</label>
+                <label for="description" class="text-sm font-bold text-gray-600">Descripcion:</label>
                 <textarea name="description" class="w-full border rounded-md py-2 px-3 mt-1" rows="5"></textarea>
             </div>
 
             <div class="mb-4">
-                <label for="startDate" class="text-sm font-bold text-gray-600">Start Date:</label>
+                <label for="startDate" class="text-sm font-bold text-gray-600">Fecha de Inicio:</label>
                 <input type="date" name="startDate" class="w-full border rounded-md py-2 px-3 mt-1">
             </div>
 
             <div class="mb-4">
-                <label for="endDate" class="text-sm font-bold text-gray-600">End Date:</label>
+                <label for="endDate" class="text-sm font-bold text-gray-600">Fecha Final:</label>
                 <input type="date" name="endDate" class="w-full border rounded-md py-2 px-3 mt-1">
             </div>
 
             <div class="mb-4">
-                <label for="taskStatus" class="text-sm font-bold text-gray-600">Task Status:</label>
+                <label for="taskStatus" class="text-sm font-bold text-gray-600">Estado da Tarea:</label>
                 <select name="taskStatus" class="w-full border rounded-md py-2 px-3 mt-1">
-                    <option value="not_completed">Not Completed</option>
-                    <option value="completed">Completed</option>
-                    <option value="ongoing">Ongoing</option>
+                    <option value="not_completed">No Completada</option>
+                    <option value="completed">Completada</option>
+                    <option value="ongoing">En Curso</option>
                 </select>
             </div>
 
-            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Add Task</button>
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Anadir Tarea</button>
         </form>
     </div>
 </body>
