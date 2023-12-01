@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show All The Current Tasks</title>
+    <title>Mostrar Tareas</title>
 </head>
 <body>
 
-<h1>Show All Current Shit Tasks</h1>
+<h1>Mostrar Todas Tareas Actuales</h1>
 
 <ul>
     <?php foreach ($this->tasks as $task) : ?>
         <li>
             <strong><?= $task['title']; ?></strong>
-            <p>User: <?= $task['userName']; ?></p>
-            <p>Status: <?= $task['taskStatus']; ?></p>
-            <p>Description: <?= $task['description']; ?></p>
+            <p>Usuario: <?= $task['userName']; ?></p>
+            <p>Estado: <?= $task['taskStatus']; ?></p>
+            <p>Descripcion: <?= $task['description']; ?></p>
         </li>
     <?php endforeach; ?>
 </ul>
