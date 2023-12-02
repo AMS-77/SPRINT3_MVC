@@ -83,7 +83,6 @@ class TaskModel {
         }
             // Guardar los cambios
             $this->saveTasks();
-        
     }
 }
 
