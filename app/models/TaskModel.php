@@ -73,16 +73,21 @@ class TaskModel {
     }
 
     // Actualizar una tarea por su ID con datos actualizados
-    public function updateTask($taskId, $taskUpdate){   
+    public function updateTask($taskId, $taskUpdate){ 
         // Actualizar la tarea en el array
         foreach ($this->tasksArray as $i => $task) {
-            if ($task['taskId'] == $taskId) {
-                $this->tasksArray[$i] = $taskUpdate;
+            if ($task['id'] == $taskId) {
+                //prueba para ver llegada del id:
+                //var_dump("El ID que se le pasa al array es:", $taskId);
+                //$this->tasksArray[$i] = array_merge($task, $taskUpdate);
+                $this->tasksArray[$i] = array_merge($task, array_filter($taskUpdate));
                 break;
             }
         }
             // Guardar los cambios
             $this->saveTasks();
+            //detiene ejecucion para ver prueba en consola del navegador:
+            //exit;
     }
 }
 
