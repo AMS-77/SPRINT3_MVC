@@ -11,12 +11,12 @@
 
             <h1 class="text-3xl font-bold mb-8 text-center bg-blue-500 text-white p-4">Actualizar Tarea</h1>
             
-            <form method="post" action="updateTask" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-    <input type="hidden" name="taskId" value="<?php echo isset($taskId) ? $taskId : ''; ?>" />
-        
-                    <div class="mb-4">
-                        <label for="title" class="text-sm font-bold text-gray-600">Titulo:</label>
-                        <input type="text" name="title" class="w-full border rounded-md py-2 px-3 mt-1">
+                <form method="post" action="updateTask" class="form_group">
+    <input type="hidden" name="taskId" value="<?php echo isset($_GET['taskId']) ? $_GET['taskId'] : ''; ?>" />
+    
+                    <div class="form_group">
+                        <label for="title" class="label">Title:</label>
+                        <input type="text" name="title" value="<?php echo $task['title']; ?>" class="form_group">
                     </div>
 
                     <div class="mb-4">

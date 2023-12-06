@@ -64,6 +64,22 @@ class ApplicationController extends Controller {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Cogemos los datos del formulario
             $taskId = $_POST['taskId'];
+            //Prueba para ver el id que se recibe en el Controlador:
+            //var_dump("El ID que recibe el Controlador es: ".$taskId);
+            
+            $arrayTasks = $this->taskOrganizer->getAllTasks();
+            $taskToUpdate = null;
+
+            foreach ($arrayTasks as $task) {
+                if ($task['id'] == $taskId) {
+                    $taskToUpdate = $task;
+                    break;
+                }
+            }
+            //Enviamos datos del registro a la Vista para visualizarlos antes de modificarlos
+            $this->view = new View();
+            $this->view->task = $taskToUpdate; 
+            
             $title = $_POST['title'];
             $userName = $_POST['userName'];
             $description = $_POST['description'];
@@ -78,11 +94,14 @@ class ApplicationController extends Controller {
                 'taskStatus' => $taskStatus,
                 'startDate' => $startDate,
                 'endDate' => $endDate ];
-            
+
+
             $this->taskOrganizer->updateTask($taskId,$taskUpdate);
+
             //Regresa a la pantalla principal.
             header("Location: ../web/"); 
             exit; 
+            
 
         }
     }
