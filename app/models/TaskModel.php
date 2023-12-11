@@ -14,7 +14,8 @@ class TaskModel {
         $this->takeJsonDbAndDecode();
     }
 
-    // Método para tomar la base de datos en formato JSON y decodificarla en un array para su uso en PHP. Inicializado en el constructor.
+    /* Método para tomar la base de datos en formato JSON y decodificarla en
+     un array para su uso en PHP. Inicializado en el constructor.*/
     public function takeJsonDbAndDecode(){
         if(file_exists($this->jsonDB)){
             $jsonContent = file_get_contents($this->jsonDB);
@@ -24,7 +25,7 @@ class TaskModel {
         }
     }
 
-    // Entrega el array de tareas al controlador.
+    // Entrega del array de tareas al controlador.
     public function getAllTasks(){
         return $this->tasksArray;
     }
@@ -61,8 +62,8 @@ class TaskModel {
         // Iterar sobre el array de tareas
         foreach ($this->tasksArray as $i => $task) {
             /*Debemos comprobar que la clave id existe en $task, para evitar un warning
-            //en el navegador, con la funcion array_key_exists, además comprobamos que coincida
-            con el que buscamos.*/
+            //en el navegador, con la funcion array_key_exists. Y además comprobamos que coincida
+            con el id que buscamos.*/
             if (array_key_exists('id', $task) && $task['id'] == $taskId) {
                 // Si se encuentra, eliminar la tarea y salir del bucle
                 unset($this->tasksArray[$i]);
@@ -72,18 +73,27 @@ class TaskModel {
         }   
     }
 
-    // Actualizar una tarea por su ID con datos actualizados
-    public function updateTask($taskId, $taskUpdate){   
+     // Actualizar una tarea por su ID con datos actualizados
+     public function updateTask($taskId, $taskUpdate){ 
         // Actualizar la tarea en el array
         foreach ($this->tasksArray as $i => $task) {
-            if ($task['taskId'] == $taskId) {
-                $this->tasksArray[$i] = $taskUpdate;
+            if ($task['id'] == $taskId) {
+                //prueba para ver llegada del id:
+                //var_dump("El ID que se le pasa al array es:", $taskId);
+                
+                //Usamos la función array_merge para fusionar los datos de los dos arrays
+                $this->tasksArray[$i] = array_merge($task, array_filter($taskUpdate));
+                /*Por el otro lado usamos array_filter para que no tenga en cuenta los
+                campos donde no escribamos modificaciones y nos lo sobreescriba como campos
+                vacíos, pudiendo coger los datos del array original*/
+                $this->saveTasks();
                 break;
             }
         }
             // Guardar los cambios
             $this->saveTasks();
-        
+            //detiene ejecucion para ver prueba en consola del navegador:
+            //exit;
     }
 }
 
