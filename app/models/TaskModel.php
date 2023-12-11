@@ -73,7 +73,7 @@ class TaskModel {
     }
 
     // Actualizar una tarea por su ID con datos actualizados
-    public function updateTask($taskId, $taskUpdate){ 
+    public function updateTask($taskId, $taskUpdate){   
         // Actualizar la tarea en el array
         foreach ($this->tasksArray as $i => $task) {
             if ($task['id'] == $taskId) {
