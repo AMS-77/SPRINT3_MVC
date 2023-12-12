@@ -34,7 +34,7 @@ class TaskModel {
         $result = file_put_contents($this->jsonDB, json_encode($this->tasksArray, JSON_PRETTY_PRINT));
         if($result === false)
         {
-        exit("Failed to save new task on the JSON database");
+        exit("Fallo al guardar la tarea en la base de datos");
         }
     }
 
