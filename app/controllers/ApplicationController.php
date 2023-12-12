@@ -4,9 +4,6 @@
  * Controlador de la aplicación...
  */
 
-//require_once '../models/TaskModel.php';
-//require_once '../../lib/base/Controller.php'; //Isn't necessary..
-
 class ApplicationController extends Controller {
 
     //Atributo.
@@ -18,18 +15,10 @@ class ApplicationController extends Controller {
     }
 
     public function indexAction(){
-        //Este es el primer método del CRUD que se ejecuta en la vista principal, es la R.
+        //Este es el primer método del CRUD que se ejecuta en la vista principal, hace de Read.
         $tasks = $this->taskOrganizer->getAllTasks();
-        //Gracias al array que hemos rescatado del modelo, se enseñará en la vista.
+        //Enviamos el array de tareas, que se enseñará en la vista.
         $this->view->tasks = $tasks ;
-    }
-    public function showAllTasks(){
-        //take all tasks and insert them on the variable
-        $taskList = new TaskModel();
-        
-        $tasks = $taskList->getAllTasks();
-        //Send the tasks to view
-        $this->view->tasks = $tasks;
     }
 
     public function createTaskAction(){
@@ -42,7 +31,7 @@ class ApplicationController extends Controller {
             $taskStatus = $_POST['taskStatus'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
-            //enviamos datos al modelo
+            //Enviamos datos al modelo
             $this->taskOrganizer->createTask($title, $userName, $description, $taskStatus, $startDate, $endDate);
             //Regresa a la pantalla principal.
             header("Location: ../web/"); 
@@ -60,50 +49,57 @@ class ApplicationController extends Controller {
     }
 
     public function updateTaskAction(){
+        // Inicializamos la variable $taskToUpdate.
+        $taskToUpdate = null;
         
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            // Cogemos los datos del formulario
-            $taskId = $_POST['taskId'];
-            //Prueba para ver el id que se recibe en el Controlador:
-            //var_dump("El ID que recibe el Controlador es: ".$taskId);
-            
-            $arrayTasks = $this->taskOrganizer->getAllTasks();
-            $taskToUpdate = null;
+        //var_dump($_GET); // Verificamos los datos enviados a ver si el id llega por URL.
+        //exit; 
+        
+        //Capturamos el id, aun sabiendo que llega por URL comprobamos si es POST, GET,
+        //de no ser ninguno se declara como null.
+        $taskId = $_POST['taskId'] ?? $_GET['taskId'] ?? null;
 
-            foreach ($arrayTasks as $task) {
-                if ($task['id'] == $taskId) {
-                    $taskToUpdate = $task;
-                    break;
-                }
+        // Obtenemos todas las tareas actuales llamando a la función del Modelo
+        $arrayTasks = $this->taskOrganizer->getAllTasks();
+    
+        // Buscamos la tarea correspondiente al ID
+        foreach ($arrayTasks as $task) {
+            if ($task['id'] == $taskId) {
+                $taskToUpdate = $task;
+                break;
             }
-            //Enviamos datos del registro a la Vista para visualizarlos antes de modificarlos
-            $this->view = new View();
-            $this->view->task = $taskToUpdate; 
-            
+        }
+    
+        // Si el formulario se envió...
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Obtenemos los datos del formulario
             $title = $_POST['title'];
             $userName = $_POST['userName'];
             $description = $_POST['description'];
             $taskStatus = $_POST['taskStatus'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
-
+    
+            // Creamos un array con los datos actualizados
             $taskUpdate = [
                 'title' => $title,
                 'userName' => $userName,
                 'description' => $description,
                 'taskStatus' => $taskStatus,
                 'startDate' => $startDate,
-                'endDate' => $endDate ];
-
-
-            $this->taskOrganizer->updateTask($taskId,$taskUpdate);
-
-            //Regresa a la pantalla principal.
-            header("Location: ../web/"); 
-            exit; 
-            
-
+                'endDate' => $endDate
+            ];
+    
+            // Llamamos al método del modelo para actualizar la tarea
+            $this->taskOrganizer->updateTask($taskId, $taskUpdate);
+    
+            // Redirigimos a la pantalla principal con el listado de tareas ya actualizado
+            header("Location: ../web/");
+            exit;
         }
+    
+        // Enviamos $taskToUpdate as la vista para que se muestren los datos actuales en el formulario
+        $this->view->taskToUpdate = $taskToUpdate;
     }
 }
 

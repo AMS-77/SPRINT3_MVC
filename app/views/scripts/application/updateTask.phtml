@@ -1,54 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Tarea</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
+
 <body class="bg-gray-100">
-        <div class="container mx-auto p-8">
+    <div class="container mx-auto p-8">
 
-            <h1 class="text-3xl font-bold mb-8 text-center bg-blue-500 text-white p-4">Actualizar Tarea</h1>
-            
-                <form method="post" action="updateTask" class="form_group">
-    <input type="hidden" name="taskId" value="<?php echo isset($_GET['taskId']) ? $_GET['taskId'] : ''; ?>" />
-    
-                    <div class="form_group">
-                        <label for="title" class="label">Title:</label>
-                        <input type="text" name="title" value="<?php echo $task['title']; ?>" class="form_group">
-                    </div>
+        <h1 class="text-3xl font-bold mb-8 text-center bg-blue-500 text-white p-4">Actualizar Tarea</h1>
+        
+        <form method="post" action="updateTask" class="form_group">
 
-                    <div class="mb-4">
-                        <label for="userName" class="text-sm font-bold text-gray-600">Nombre de Usuario:</label>
-                        <input type="text" name="userName" class="w-full border rounded-md py-2 px-3 mt-1">
-                    </div>
+            <!-- Campo que no ve el usuario (hidden) pero que se ha de enviar junto
+        con los demás datos del formulario que sí que se pueden modificar por el usuario -->
+            <input type="hidden" name="taskId" value="<?= $_GET['taskId'] ?>">
 
-                    <div class="mb-4">
-                        <label for="description" class="text-sm font-bold text-gray-600">Descripcion:</label>
-                        <textarea name="description" class="w-full border rounded-md py-2 px-3 mt-1" rows="5"></textarea>
-                    </div>
+            <!-- Campo del título -->
+            <div class="form_group">
+                <label for="title" class="label">Title:</label>
+                <!-- Usamos $this->taskToUpdate...  para que no entienda que es una variable
+                local, que es la que hemos creado en el controlador. Y así con los demás campos -->
+                <input type="text" name="title" value="<?= $this->taskToUpdate['title'] ?>" class="form_group">
+            </div>
 
-                    <div class="mb-4">
-                        <label for="startDate" class="text-sm font-bold text-gray-600">Fecha de Inicio:</label>
-                        <input type="date" name="startDate" class="w-full border rounded-md py-2 px-3 mt-1">
-                    </div>
+            <!-- Campo del nombre del usuario -->
+            <div class="mb-4">
+                <label for="userName" class="text-sm font-bold text-gray-600">Nombre de Usuario:</label>
+                <input type="text" name="userName" value="<?= $this->taskToUpdate['userName'] ?>" class="w-full border rounded-md py-2 px-3 mt-1">
+            </div>
 
-                    <div class="mb-4">
-                        <label for="endDate" class="text-sm font-bold text-gray-600">Fecha Final:</label>
-                        <input type="date" name="endDate" class="w-full border rounded-md py-2 px-3 mt-1">
-                    </div>
+            <!-- Campo descripción -->
+            <div class="mb-4">
+                <label for="description" class="text-sm font-bold text-gray-600">Descripcion:</label>
+                <textarea name="description" class="w-full border rounded-md py-2 px-3 mt-1" rows="5"><?= $this->taskToUpdate['description'] ?></textarea>
+            </div>
 
-                    <div class="mb-4">
-                        <label for="taskStatus" class="text-sm font-bold text-gray-600">Estado da Tarea:</label>
-                        <select name="taskStatus" class="w-full border rounded-md py-2 px-3 mt-1">
-                            <option value="not_completed">No completada</option>
-                            <option value="completed">Completada</option>
-                            <option value="ongoing">En Curso</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Actualizar Tarea</button>
-            </form>
-        </div>   
+            <!-- Campo de la fecha de inicio -->
+            <div class="mb-4">
+                <label for="startDate" class="text-sm font-bold text-gray-600">Fecha de Inicio:</label>
+                <input type="date" name="startDate" value="<?= $this->taskToUpdate['startDate'] ?>" class="w-full border rounded-md py-2 px-3 mt-1">
+            </div>
+
+            <!-- Campo de la fecha final -->
+            <div class="mb-4">
+                <label for="endDate" class="text-sm font-bold text-gray-600">Fecha Final:</label>
+                <input type="date" name="endDate" value="<?= $this->taskToUpdate['endDate'] ?>" class="w-full border rounded-md py-2 px-3 mt-1">
+            </div>
+
+            <!-- Campo del estado de la tarea -->
+            <div class="mb-4">
+                <label for="taskStatus" class="text-sm font-bold text-gray-600">Estado da Tarea:</label>
+                <select name="taskStatus" class="w-full border rounded-md py-2 px-3 mt-1">
+                    <option value="not_completed" <?= $this->taskToUpdate['taskStatus'] == 'not_completed' ? 'selected' : '' ?>>No completada</option>
+                    <option value="completed" <?= $this->taskToUpdate['taskStatus'] == 'completed' ? 'selected' : '' ?>>Completada</option>
+                    <option value="ongoing" <?= $this->taskToUpdate['taskStatus'] == 'ongoing' ? 'selected' : '' ?>>En Curso</option>
+                </select>
+            </div>
+
+            <!-- Botón para enviar el formulario con las tareas actualizadas -->
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Actualizar Tarea</button>
+
+        </form>
+    </div>
 </body>
+
 </html>

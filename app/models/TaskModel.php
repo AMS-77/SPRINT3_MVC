@@ -77,17 +77,15 @@ class TaskModel {
         // Actualizar la tarea en el array
         foreach ($this->tasksArray as $i => $task) {
             if ($task['id'] == $taskId) {
-                //prueba para ver llegada del id:
-                //var_dump("El ID que se le pasa al array es:", $taskId);
-                //$this->tasksArray[$i] = array_merge($task, $taskUpdate);
+                /*Con array_merge y array_filter fusionamos los datos del registro o array
+                que vamos a cambiar con los datos nuevos, si hay campos que no tocamos
+                conservará los datos anteriores.*/
                 $this->tasksArray[$i] = array_merge($task, array_filter($taskUpdate));
                 break;
             }
         }
             // Guardar los cambios
             $this->saveTasks();
-            //detiene ejecucion para ver prueba en consola del navegador:
-            //exit;
     }
 }
 
